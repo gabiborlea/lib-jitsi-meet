@@ -33,6 +33,8 @@ class SpeakerStats {
             disgusted: 0,
             sad: 0
         };
+        this._currentExpression = '';
+        this.timeline = [];
     }
 
     /**
@@ -145,6 +147,15 @@ class SpeakerStats {
     }
 
     /**
+     * Gets the face expressions of the user.
+     *
+     * @returns {Object}
+     */
+    getCurrentFaceExpression() {
+        return this._currentExpression;
+    }
+
+    /**
      * Sets the face expressions of the user.
      *
      * @param {Object} faceExpressions - object with face expressions.
@@ -155,13 +166,27 @@ class SpeakerStats {
     }
 
     /**
+     * Sets the face expressions of the user.
+     *
+     * @param {Object} faceExpressions - object with face expressions.
+     * @returns {void}
+     */
+    setCurrentFaceExpression(faceExpressions) {
+        this._currentExpression = faceExpressions;
+    }
+
+    /**
      * Adds a new face expression to speaker stats.
      *
      * @param  {string} faceExpression
      * @param {number} duration
      */
-    addFaceExpression(faceExpression, duration) {
+    addFaceExpression(faceExpression, duration, timestamp) {
         this._faceExpressions[faceExpression] += duration;
+        this.timeline.push({
+            x: timestamp,
+            y: faceExpression
+        });
     }
 }
 

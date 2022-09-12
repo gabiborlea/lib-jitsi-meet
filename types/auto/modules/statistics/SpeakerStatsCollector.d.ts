@@ -63,6 +63,15 @@ export default class SpeakerStatsCollector {
      */
     private _onFaceLandmarkAdd;
     /**
+     * Processes a new face landmark object of a remote user.
+     *
+     * @param {string} userId - The user id of the user that left.
+     * @param {Object} data - The face landmark object.
+     * @returns {void}
+     * @private
+     */
+    private _onCurrentExpressionChange;
+    /**
      * Return a copy of the tracked SpeakerStats models.
      *
      * @returns {Object} The keys are the user ids and the values are the

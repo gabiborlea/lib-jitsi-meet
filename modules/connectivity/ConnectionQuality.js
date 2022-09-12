@@ -239,6 +239,16 @@ export default class ConnectionQuality {
                         payload);
                 }
             });
+        conference.on(
+            ConferenceEvents.ENDPOINT_MESSAGE_RECEIVED,
+            (participant, payload) => {
+                if (payload.type === 'current-expression') {
+                    this.eventEmitter.emit(
+                        'current-expression-changed',
+                        participant.getId(),
+                        payload);
+                }
+            });
 
         // Listen to local statistics events originating from the RTC module and update the _localStats field.
         conference.statistics.addConnectionStatsListener(this._updateLocalStats.bind(this));

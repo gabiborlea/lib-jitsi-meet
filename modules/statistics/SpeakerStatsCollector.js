@@ -44,6 +44,10 @@ export default class SpeakerStatsCollector {
         conference.addEventListener(
             JitsiConferenceEvents.FACE_LANDMARK_ADDED,
             this._onFaceLandmarkAdd.bind(this));
+
+        conference.addEventListener(
+            'current-expression-changed',
+            this._onCurrentExpressionChange.bind(this));
         if (conference.xmpp) {
             conference.xmpp.addListener(
                 XMPPEvents.SPEAKER_STATS_RECEIVED,
@@ -132,7 +136,23 @@ export default class SpeakerStatsCollector {
         const savedUser = this.stats.users[userId];
 
         if (savedUser && data.faceExpression) {
-            savedUser.addFaceExpression(data.faceExpression, data.duration);
+            savedUser.addFaceExpression(data.faceExpression, data.duration, data.timestamp);
+        }
+    }
+
+    /**
+     * Processes a new face landmark object of a remote user.
+     *
+     * @param {string} userId - The user id of the user that left.
+     * @param {Object} data - The face landmark object.
+     * @returns {void}
+     * @private
+     */
+    _onCurrentExpressionChange(userId, data) {
+        const savedUser = this.stats.users[userId];
+
+        if (savedUser && data.faceExpression) {
+            savedUser.setCurrentFaceExpression(data.faceExpression);
         }
     }
 

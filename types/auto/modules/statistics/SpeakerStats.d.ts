@@ -32,6 +32,8 @@ declare class SpeakerStats {
         disgusted: number;
         sad: number;
     };
+    _currentExpression: string;
+    timeline: any[];
     /**
      * Get the user id being tracked.
      *
@@ -98,6 +100,12 @@ declare class SpeakerStats {
      */
     getFaceExpressions(): any;
     /**
+     * Gets the face expressions of the user.
+     *
+     * @returns {Object}
+     */
+    getCurrentFaceExpression(): any;
+    /**
      * Sets the face expressions of the user.
      *
      * @param {Object} faceExpressions - object with face expressions.
@@ -105,10 +113,17 @@ declare class SpeakerStats {
      */
     setFaceExpressions(faceExpressions: any): void;
     /**
+     * Sets the face expressions of the user.
+     *
+     * @param {Object} faceExpressions - object with face expressions.
+     * @returns {void}
+     */
+    setCurrentFaceExpression(faceExpressions: any): void;
+    /**
      * Adds a new face expression to speaker stats.
      *
      * @param  {string} faceExpression
      * @param {number} duration
      */
-    addFaceExpression(faceExpression: string, duration: number): void;
+    addFaceExpression(faceExpression: string, duration: number, timestamp: any): void;
 }
